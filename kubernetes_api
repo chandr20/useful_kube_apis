@@ -1,0 +1,81 @@
+**********creating pod **********************
+
+POST
+172.24.4.56:8080/api/v1/namespaces/testnamespace/pods
+
+
+REQUEST BODY
+
+{
+	"apiVersion": "v1",
+	"kind": "Pod",
+	"metadata": {
+		"name": "testpod1"
+	},
+	"spec": {
+		"containers": [
+			{
+				"name" : "super1",
+				"image": "alpine:latest",
+				"command": [
+					"ping"
+				],
+				"args": [
+					"127.0.0.1"
+				]
+			}
+		]
+	}
+}
+
+************creating namespace******************
+POST
+172.24.4.56:8080/api/v1/namespaces/
+
+
+REQUEST BODY
+
+
+{
+    "apiVersion": "v1",
+    "kind": "Namespace",
+    "metadata": {
+        "name": "testnamespace"
+    }
+}
+*********creating replication controller***************
+POST
+172.24.4.56:8080/api/v1/namespaces/testnamespace/replicationcontrollers
+
+{
+	"apiVersion": "v1",
+	"kind": "ReplicationController",
+	"metadata": {
+		"name": "replicationcontroller-example"
+	},
+	"spec": {
+		"replicas": 3,
+		"template": {
+			"metadata": {
+				"labels": {
+					"app": "alpine"
+				}
+			},
+			"spec": {
+				"containers": [{
+					"name": "alpine",
+					"image": "alpine:latest",
+					"command": [
+						"ping"
+					],
+					"args": [
+						"127.0.0.1"
+					]
+				}]
+			}
+		}
+	}
+}
+
+
+
